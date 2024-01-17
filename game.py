@@ -41,7 +41,6 @@ def get_position(position='A'):
     print("Your current position: ",position)
     # If the game hasn't reached the last position, keep playing
     while len(list_of_positions[position]['positions']) != 0:
-        # user_input = input(list_of_positions[position]['question'])
         user_input = give_instructions(list_of_positions[position]['question'], position)
 
         print("Direction given by you: ", user_input)
