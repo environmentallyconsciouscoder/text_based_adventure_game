@@ -1,3 +1,5 @@
+from typing import Union
+
 list_of_positions = {
     'A': {'positions': ('B', 'C'), 'directions': {'N': 'B', 'W': 'C', 'E': None, 'S': None}, 'question': 'Welcome to the Game, You are in the top floor of the building and the fire alarm has gone off! choose a direction to escape: N, E, S or E ', 'isThereCat': False},
     'B': {'positions': ('A'), 'directions': {'N': None, 'W': None, 'E': None, 'S':'A'}, 'question': 'There is no way out from here. Please go back! Choose a direction to escape: N, E, S or E ', 'isThereCat': False},
@@ -18,27 +20,27 @@ list_of_positions = {
 found_cat = False
 starting_position = 'A'
 
-def get_direction(user_input, position):
+def get_direction(user_input: str, position: str) -> Union[None, str]:
     for direction in user_input:
         if direction in list_of_positions[position]['directions']:
             return list_of_positions[position]['directions'][direction]
     print("Invalid direction entered")
     return None
 
-def find_cat(position):
+def find_cat(position: str) -> Union[None, bool]:
     global found_cat
     if list_of_positions[position]['isThereCat']:
         print("you found the cat")
         found_cat = True
 
-def give_instructions(question, position):
+def give_instructions(question: str, position: str) -> str:
     if position == 'F' and found_cat or position == 'I' and found_cat or position == 'H' and found_cat:
         response = input('There is no way out from here. Please go back! Choose a direction to escape: N, E, S or E ')
     else:
         response = input(question)
     return response
 
-def get_position(position=starting_position):
+def get_position(position: str = starting_position) -> None:
     print("Your current position: ",position)
     # If the game hasn't reached the last position, keep playing
     while len(list_of_positions[position]['positions']) != 0:
@@ -61,10 +63,10 @@ def get_position(position=starting_position):
     if len(list_of_positions[position]['positions']) == 0:
         end_game()
 
-def start_game():
+def start_game() -> None:
     get_position()
 
-def end_game():
+def end_game() -> None:
     print('You have now escaped!')
 
 if __name__ == "__main__":
