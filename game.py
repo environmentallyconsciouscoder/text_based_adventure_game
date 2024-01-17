@@ -1,21 +1,25 @@
 from typing import Union
 from game_data import list_of_positions, found_cat, starting_position
+from game_utils import get_directions, backtracking_required, check_room
 
 def get_direction(user_input: str, position: str) -> Union[None, str]:
-    for direction in user_input:
-        if direction in list_of_positions[position]['directions']:
-            return list_of_positions[position]['directions'][direction]
-    print("Invalid direction entered")
-    return None
+    directions = get_directions(position)
+    valid_directions = [directions[direction] for direction in user_input if direction in directions]
+    if valid_directions:
+        return valid_directions[0]
+    else:
+        print("Invalid direction entered")
+        return None
 
 def find_cat(position: str) -> Union[None, bool]:
     global found_cat
-    if list_of_positions[position]['isThereCat']:
+    cat_in_room = check_room(position)
+    if cat_in_room:
         print("you found the cat")
         found_cat = True
 
 def give_instructions(question: str, position: str) -> str:
-    if position == 'F' and found_cat or position == 'I' and found_cat or position == 'H' and found_cat:
+    if backtracking_required(position, found_cat):
         response = input('There is no way out from here. Please go back! Choose a direction to escape: N, E, S or E ')
     else:
         response = input(question)
