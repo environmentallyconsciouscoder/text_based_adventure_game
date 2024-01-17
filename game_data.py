@@ -16,4 +16,4 @@ list_of_positions = {
     }
 
 found_cat = False
-starting_position = 'F'
+starting_position = 'A'
