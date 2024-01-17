@@ -1,6 +1,6 @@
 from typing import Union
 from game_data import list_of_positions, found_cat, starting_position
-from game_utils import get_directions, backtracking_required, check_room
+from game_utils import get_directions, backtracking_required, check_room, check_is_position_last, check_permission
 
 def get_direction(user_input: str, position: str) -> Union[None, str]:
     directions = get_directions(position)
@@ -26,16 +26,20 @@ def give_instructions(question: str, position: str) -> str:
     return response
 
 def get_position(position: str = starting_position) -> None:
+
+    keep_playing = check_is_position_last(position)
     print("Your current position: ",position)
+
     # If the game hasn't reached the last position, keep playing
-    while len(list_of_positions[position]['positions']) != 0:
+    while keep_playing:
         user_input = give_instructions(list_of_positions[position]['question'], position)
 
         print("Direction given by you: ", user_input)
         next_position = get_direction(user_input, position)
         if next_position is not None:
             find_cat(next_position)
-            if next_position == 'G' and found_cat is False:
+            is_movement_allowed = check_permission(next_position, found_cat)
+            if is_movement_allowed:
                 print("you need to find the cat before you can move on")
                 get_position('F')
                 continue
@@ -45,7 +49,7 @@ def get_position(position: str = starting_position) -> None:
             print("The direction does not lead anywhere. Please try again.")
             continue
         break
-    if len(list_of_positions[position]['positions']) == 0:
+    if not keep_playing:
         end_game()
 
 def start_game() -> None:
