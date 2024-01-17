@@ -6,8 +6,6 @@ Welcome to the Adventure Game project! In this project, we aim to create a basic
 
 ## Project Overview
 
-To achieve this, the following key components need to be implemented:
-
 1. **User Movement:** Establish a system for users to navigate through the game by specifying directions (e.g., north, south, east, west).
 
 2. **Position Tracking:** Implement a mechanism to keep track of the user's current position within the game world. This is crucial for determining which room the user is in and managing their progress.
