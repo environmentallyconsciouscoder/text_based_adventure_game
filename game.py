@@ -21,6 +21,7 @@ def find_cat(position: str) -> Union[None, bool]:
         print("you found the cat")
         found_cat = True
 
+# once the condition is met where they found the cat the message will changed
 def give_instructions(question: str, position: str) -> str:
     if backtracking_required(position, found_cat):
         response = input('There is no way out from here. Please go back! Choose a direction to escape: N, E, S or E ')
