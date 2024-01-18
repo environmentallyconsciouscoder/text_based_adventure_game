@@ -2,7 +2,6 @@ from typing import Union
 from game_data import list_of_positions, found_cat, starting_position
 from game_utils import get_directions, backtracking_required, check_room, check_is_position_last, check_permission
 
-
 # this function will take the user direction and if the direction is from the dict then if will return direction
 def get_direction(user_input: str, position: str) -> Union[None, str]:
     directions = get_directions(position)
@@ -29,6 +28,7 @@ def give_instructions(question: str, position: str) -> str:
         response = input(question)
     return response
 
+# The recursive function will keep calling itself until the specified condition is met
 def get_position(position: str = starting_position) -> None:
 
     keep_playing = check_is_position_last(position)
