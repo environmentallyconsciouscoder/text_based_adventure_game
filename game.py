@@ -35,6 +35,8 @@ def get_position(position: str = starting_position) -> None:
         user_input = give_instructions(list_of_positions[position]['question'], position)
 
         print("Direction given by you: ", user_input)
+
+        #step 2) ask user for direction
         next_position = get_direction(user_input, position)
         if next_position is not None:
             find_cat(next_position)
@@ -44,11 +46,13 @@ def get_position(position: str = starting_position) -> None:
                 get_position('F')
                 continue
             else:
+                #step 3) pass in the next position
                 get_position(next_position)
         else:
             print("The direction does not lead anywhere. Please try again.")
             continue
         break
+    #step 4) game stops when reached final position
     if not keep_playing:
         end_game()
 
@@ -59,4 +63,5 @@ def end_game() -> None:
     print('You have now escaped!')
 
 if __name__ == "__main__":
+    # step 1) call this function first
     start_game()
